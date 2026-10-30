@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090d16">
+  <meta name="description" content="WebLab Hub - Master Catalogue of 41 Frontend Web Development Assignments by Leo Shiji.">
+  <title>WebLab Hub — 41 Frontend Mini Projects</title>
+  <link rel="stylesheet" href="gallery.css">
+  <script src="app.js" defer></script>
+</head>
+<body data-page="gallery">
+
+  <!-- Header Navigation Bar -->
+  <header class="top-nav">
+    <div class="brand-wrap">
+      <a href="gallery.html" class="brand-wrap" aria-label="WebLab Hub Home">
+        <div class="brand-icon">W</div>
+        <div>
+          <div class="brand-text">WebLab<span>Hub</span></div>
+          <span class="brand-sub">VIT CSE • 41 LAB EXPERIMENTS</span>
+        </div>
+      </a>
+    </div>
+
+    <nav class="nav-links" aria-label="Main navigation">
+      <a class="nav-link active" href="gallery.html">Showcase Hub</a>
+      <a class="nav-link" href="index.html">All-in-One Stream</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="btn-random" onclick="cycleThemePalette()" id="themeBtn" title="Switch Theme Color Palette">
+        <span>🎨</span> Palette: <strong id="paletteName">Aurora Teal</strong>
+      </button>
+
+      <button class="btn-random" onclick="launchRandomProject()" title="Explore a random project">
+        <span>🎲</span> Surprise Me
+      </button>
+
+      <div class="student-pill" onclick="openStudentBioModal()" title="View Student Author Details">
+        <img src="sites/images/Leo_pic.jpg" alt="Leo Shiji" class="student-avatar" onerror="this.src='sites/Leo_pic.jpg'">
+        <div>
+          <span>Leo Shiji</span>
+          <span class="student-reg">23MIC0082</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Spotlight Hero Section -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <div class="hero-badge-wrap">
+          <div class="hero-badge">
+            <span class="pulse-dot"></span> 41 LAB EXPERIMENTS COMPLETED
+          </div>
+          <div class="hero-badge sub-badge">
+            VIT VELLORE • SCOPE
+          </div>
+        </div>
+
+        <h1 class="hero-title">
+          Mastering Modern <br>
+          <span class="gradient-text">Web Architecture.</span>
+        </h1>
+
+        <p class="hero-desc">
+          An interactive laboratory portfolio uniting 41 frontend web projects — spanning foundational semantic HTML5 layouts, advanced CSS grid designs, validated dynamic forms, responsive UI components, and JavaScript DOM interaction simulations.
+        </p>
+
+        <div class="hero-cta-group">
+          <a class="btn-primary-cta" href="#collection">
+            <span>Explore Catalog</span> ↓
+          </a>
+          <a class="btn-secondary-cta" href="index.html">
+            <span>All-in-One Stream</span> →
+          </a>
+        </div>
+
+        <div class="hero-stats-row">
+          <div class="stat-item">
+            <span class="stat-number">41</span>
+            <span class="stat-label">Total Projects</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">5</span>
+            <span class="stat-label">Tracks</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Responsive</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">Vanilla</span>
+            <span class="stat-label">HTML / CSS / JS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Interactive Stage Showcase -->
+      <div class="hero-stage">
+        <div class="stage-wrapper">
+          <div class="stage-toolbar">
+            <div class="stage-dots">
+              <span class="stage-dot red"></span>
+              <span class="stage-dot yellow"></span>
+              <span class="stage-dot green"></span>
+            </div>
+            <div class="stage-tabs">
+              <button class="stage-tab active" onclick="switchStagePreview(31, 'Traffic Signal', this)">🚦 Signal</button>
+              <button class="stage-tab" onclick="switchStagePreview(16, 'GameZone', this)">🎮 GameZone</button>
+              <button class="stage-tab" onclick="switchStagePreview(32, 'Weather Status', this)">🌦️ Weather</button>
+              <button class="stage-tab" onclick="switchStagePreview(35, 'ATM PIN Entry', this)">💳 ATM</button>
+            </div>
+          </div>
+          <div class="stage-screen">
+            <iframe id="heroStageFrame" src="sites/31.html" title="Interactive Showcase Hero"></iframe>
+            <div class="stage-caption" id="stageCaption">
+              <span>● LIVE PREVIEW:</span> <span id="stageTitle">31. Traffic Signal</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Collection & Filtering Section -->
+    <section class="collection-section" id="collection">
+      <div class="collection-header-row">
+        <div>
+          <div class="section-label">PROJECT REPOSITORY</div>
+          <h2 class="section-heading">
+            All Projects <span class="count-chip" id="visible-count">41</span>
+          </h2>
+        </div>
+
+        <div class="search-sort-group">
+          <div class="search-box-container">
+            <span class="search-icon-left">🔍</span>
+            <input id="gallery-search" class="gallery-search-input" type="search" placeholder="Find project by name or tag..." autocomplete="off" aria-label="Search sites">
+            <kbd class="search-hotkey">/</kbd>
+          </div>
+
+          <select id="gallery-sort" class="sort-select" aria-label="Sort projects">
+            <option value="num-asc">Order: #01 → #41</option>
+            <option value="num-desc">Order: #41 → #01</option>
+            <option value="name-asc">Title: A → Z</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Categories Filter Bar -->
+      <div class="filter-tools-bar">
+        <div class="category-chips" id="gallery-filters" aria-label="Filter by category">
+          <!-- Populated by app.js -->
+        </div>
+      </div>
+
+      <!-- Card Grid -->
+      <div class="project-grid" id="project-list">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-state" id="empty-message" style="display: none;">
+        <div class="empty-icon">🔍</div>
+        <h3 class="empty-title">No projects match your filter</h3>
+        <p class="empty-desc">Try clearing your search query or selecting "All Projects".</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- In-Page Quick Preview Modal -->
+  <div class="preview-modal-backdrop" id="previewModal" onclick="closePreviewModal(event)">
+    <div class="preview-modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-id-badge" id="modalId">#01</span>
+          <h3 class="modal-title" id="modalTitle">Project Title</h3>
+        </div>
+
+        <div class="modal-controls">
+          <div class="modal-device-btns">
+            <button class="device-btn active" onclick="setModalViewport('100%', this)">🖥️ Desktop</button>
+            <button class="device-btn" onclick="setModalViewport('768px', this)">📱 Tablet</button>
+            <button class="device-btn" onclick="setModalViewport('380px', this)">📱 Mobile</button>
+          </div>
+
+          <button class="modal-btn-action" onclick="reloadModalFrame()" title="Reload preview">🔄 Reload</button>
+          <a class="modal-btn-action" id="modalOpenExternal" href="#" target="_blank" title="Open in new window">↗ Open</a>
+          <button class="modal-close-btn" onclick="closePreviewModal()" title="Close (Esc)">✕</button>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-iframe-container" id="modalIframeContainer">
+          <iframe id="modalFrame" src="" title="Live Project Preview"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Student Author Modal -->
+  <div class="preview-modal-backdrop" id="studentBioModal" onclick="closeStudentBioModal(event)">
+    <div class="bio-modal-content" onclick="event.stopPropagation()">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+        <h3 style="margin:0; font-size: 20px; color: #fff;">Student Author Profile</h3>
+        <button class="modal-close-btn" onclick="closeStudentBioModal()">✕</button>
+      </div>
+      <div style="display: flex; gap: 20px; align-items: center; margin-bottom: 20px;">
+        <img src="sites/images/Leo_pic.jpg" alt="Leo Shiji" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary);" onerror="this.src='sites/Leo_pic.jpg'">
+        <div>
+          <h4 style="margin: 0 0 4px; font-size: 18px; color: #fff;">Leo Shiji</h4>
+          <div style="color: var(--accent-cyan); font-weight: 700; font-size: 13px; font-family: var(--font-mono);">Reg No: 23MIC0082</div>
+          <div style="color: var(--text-secondary); font-size: 13px;">Integrated M.Tech (CSE) • 2023–2028</div>
+          <div style="color: var(--text-muted); font-size: 12px;">Vellore Institute of Technology (VIT)</div>
+        </div>
+      </div>
+      <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px;">
+        Integrated M.Tech Computer Science student passionate about Web Technologies, Artificial Intelligence, Machine Learning, and Full-Stack Engineering.
+      </p>
+      <div style="background: rgba(255,255,255,0.04); padding: 15px; border-radius: 8px; border: 1px solid var(--panel-border); font-size: 13px; margin-bottom: 20px;">
+        <div style="margin-bottom: 6px;"><strong>GitHub:</strong> <a href="https://github.com/leoshiji-png" target="_blank" style="color: var(--accent-cyan); text-decoration: underline;">github.com/leoshiji-png</a></div>
+        <div><strong>Academic CGPA:</strong> <span style="color: var(--accent-emerald); font-weight: 700;">7.97 CGPA</span></div>
+      </div>
+      <button class="btn-primary-cta" style="width: 100%; justify-content: center;" onclick="closeStudentBioModal()">Close Window</button>
+    </div>
+  </div>
+
+  <!-- Master Footer -->
+  <footer class="master-footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="brand-icon">W</div>
+        <div>
+          <div class="brand-text">WebLab<span>Hub</span></div>
+          <div class="footer-meta">41 Original Frontend Web Projects • Leo Shiji • Integrated M.Tech (CSE)</div>
+        </div>
+      </div>
+      <div>
+        <a class="back-to-top" href="#collection">Back to collection ↑</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 Leo Shiji (23MIC0082). Vellore Institute of Technology. Frontend Design &amp; Testing Portfolio.
+    </div>
+  </footer>
+
+</body>
+</html>
+

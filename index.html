@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090d16">
+  <title>All 41 Projects Continuous Stream — WebLab Hub</title>
+  <link rel="stylesheet" href="index.css">
+  <script src="app.js" defer></script>
+</head>
+<body data-page="combined">
+
+  <!-- Sticky Top Navigation -->
+  <header class="stream-nav-bar">
+    <div class="brand-group">
+      <a href="gallery.html" class="brand-group" aria-label="WebLab Hub Home">
+        <div class="brand-icon">W</div>
+        <div class="brand-title">WebLab<span>Hub</span></div>
+      </a>
+    </div>
+
+    <div class="nav-links-stream">
+      <a class="nav-pill" href="gallery.html">← Back to Showcase Hub</a>
+      <a class="nav-pill active" href="index.html">All-in-One Stream</a>
+      <button class="nav-pill" onclick="cycleThemePalette()" style="background: rgba(255,255,255,0.08); cursor: pointer;" title="Switch Theme Color Palette">
+        🎨 <span id="paletteName">Aurora Teal</span>
+      </button>
+    </div>
+
+    <div style="font-size: 13px; color: var(--text-muted);">
+      Candidate: <strong style="color: #fff;">Leo Shiji</strong> <span style="color: var(--accent-cyan); font-family: var(--font-mono);">(23MIC0082)</span>
+    </div>
+  </header>
+
+  <div class="stream-layout">
+    <!-- Sticky Table of Contents Sidebar -->
+    <aside class="stream-sidebar">
+      <div class="sidebar-search">
+        <span class="sidebar-search-icon">🔍</span>
+        <input type="text" id="tocFilterInput" placeholder="Filter stream list..." oninput="filterTOC()">
+      </div>
+
+      <div class="toc-heading">Table of Contents (41)</div>
+      <ul class="toc-list" id="tocList">
+        <!-- Rendered by app.js -->
+      </ul>
+    </aside>
+
+    <!-- Main Scrollable Stream -->
+    <main class="stream-main">
+      <div class="stream-hero-card">
+        <h1>Frontend Design &amp; Testing — All-In-One Stream</h1>
+        <p>
+          Continuous interactive feed of all 41 original HTML, CSS, JavaScript, and Bootstrap laboratory experiments.
+          Each embedded preview preserves its own isolated styling, scripts, and runtime interactions.
+        </p>
+        <div class="stream-author-row">
+          <span>Author: <strong>Leo Shiji</strong></span>
+          <span>•</span>
+          <span>Degree: <strong>Integrated M.Tech (CSE)</strong></span>
+          <span>•</span>
+          <span>Institution: <strong>VIT University, Vellore</strong></span>
+        </div>
+      </div>
+
+      <div id="stream-project-list">
+        <!-- Rendered by app.js -->
+      </div>
+    </main>
+  </div>
+
+</body>
+</html>
+

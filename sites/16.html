@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameZone - Level Up Your Gaming Experience</title>
+    <style>
+        :root {
+            --neon-pink: #ff2a85;
+            --neon-blue: #00f0ff;
+            --neon-purple: #9d4edd;
+            --dark-bg: #0b0c16;
+            --card-bg: #141628;
+            --text: #f0f2f5;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(255, 42, 133, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 85% 60%, rgba(0, 240, 255, 0.12) 0%, transparent 40%);
+            min-height: 100vh;
+        }
+        .hero {
+            text-align: center;
+            padding: 50px 20px 30px;
+            position: relative;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+            color: white;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            padding: 6px 16px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            box-shadow: 0 0 15px rgba(255, 42, 133, 0.5);
+        }
+        h1 {
+            font-size: clamp(32px, 5vw, 54px);
+            margin: 0 0 12px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #ffffff, #00f0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 16px;
+            color: #94a3b8;
+            max-width: 580px;
+            margin: 0 auto 30px;
+        }
+        .genre-bar {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+            padding: 0 20px;
+        }
+        .genre-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #cbd5e1;
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+        .genre-btn:hover, .genre-btn.active {
+            background: var(--neon-blue);
+            color: #0b0c16;
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+            transform: translateY(-2px);
+        }
+        .games-grid {
+            max-width: 1100px;
+            margin: 0 auto 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            padding: 0 25px;
+        }
+        .game-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            position: relative;
+        }
+        .game-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--neon-pink);
+            box-shadow: 0 12px 30px rgba(255, 42, 133, 0.25);
+        }
+        .game-thumb {
+            height: 160px;
+            background: #1e213a;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+        .game-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--neon-blue);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid var(--neon-blue);
+        }
+        .game-info {
+            padding: 20px;
+        }
+        .game-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 0 0 8px;
+            color: #fff;
+        }
+        .game-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #94a3b8;
+            margin-bottom: 15px;
+        }
+        .game-rating {
+            color: #fbbf24;
+            font-weight: bold;
+        }
+        .btn-play {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: opacity 0.2s;
+        }
+        .btn-play:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <span class="hero-badge">⚡ Next-Gen Portal</span>
+        <h1>Level Up Your Gaming Experience</h1>
+        <p>Explore the hottest tournaments, immersive RPGs, competitive esports arenas, and cloud streaming titles.</p>
+    </div>
+
+    <div class="genre-bar">
+        <button class="genre-btn active" onclick="filterGames('All', this)">All Games</button>
+        <button class="genre-btn" onclick="filterGames('Cyberpunk', this)">Sci-Fi / Cyber</button>
+        <button class="genre-btn" onclick="filterGames('Action', this)">Action &amp; Battle</button>
+        <button class="genre-btn" onclick="filterGames('RPG', this)">Open World RPG</button>
+    </div>
+
+    <div class="games-grid" id="gamesGrid">
+        <div class="game-card" data-genre="Cyberpunk">
+            <div class="game-thumb" style="background: linear-gradient(45deg, #2b0838, #ff2a85);">
+                🤖
+                <span class="game-badge">4K ULTRA</span>
+            </div>
+            <div class="game-info">
+                <div class="game-title">Neon Cyber City 2099</div>
+                <div class="game-meta">
+                    <span>Cyber / Open World</span>
+                    <span class="game-rating">★ 4.9</span>
+                </div>
+                <button class="btn-play" onclick="alert('Launching Neon Cyber City in GameZone!')">Play Now</button>
+            </div>
+        </div>
+
+        <div class="game-card" data-genre="Action">
+            <div class="game-thumb" style="background: linear-gradient(45deg, #092c3e, #00f0ff);">
+                ⚔️
+                <span class="game-badge">ESPORTS</span>
+            </div>
+            <div class="game-info">
+                <div class="game-title">Apex Arena Legends</div>
+                <div class="game-meta">
+                    <span>Battle Royale / FPS</span>
+                    <span class="game-rating">★ 4.8</span>
+                </div>
+                <button class="btn-play" onclick="alert('Launching Apex Arena in GameZone!')">Play Now</button>
+            </div>
+        </div>
+
+        <div class="game-card" data-genre="RPG">
+            <div class="game-thumb" style="background: linear-gradient(45deg, #1b381e, #10b981);">
+                🐉
+                <span class="game-badge">RAY TRACING</span>
+            </div>
+            <div class="game-info">
+                <div class="game-title">Shadows of Valhalla</div>
+                <div class="game-meta">
+                    <span>Nordic RPG / Action</span>
+                    <span class="game-rating">★ 5.0</span>
+                </div>
+                <button class="btn-play" onclick="alert('Launching Shadows of Valhalla!')">Play Now</button>
+            </div>
+        </div>
+
+        <div class="game-card" data-genre="Action">
+            <div class="game-thumb" style="background: linear-gradient(45deg, #3d1b0d, #f97316);">
+                🏎️
+                <span class="game-badge">60 FPS</span>
+            </div>
+            <div class="game-info">
+                <div class="game-title">Nitro Velocity GT</div>
+                <div class="game-meta">
+                    <span>Arcade Racing</span>
+                    <span class="game-rating">★ 4.7</span>
+                </div>
+                <button class="btn-play" onclick="alert('Launching Nitro Velocity GT!')">Play Now</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function filterGames(genre, el) {
+            document.querySelectorAll('.genre-btn').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+            document.querySelectorAll('.game-card').forEach(card => {
+                if (genre === 'All' || card.dataset.genre === genre) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+

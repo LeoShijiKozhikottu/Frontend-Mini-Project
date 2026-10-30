@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Search and Directory Filter</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            margin: 0;
+            padding: 30px 20px;
+        }
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            padding: 30px;
+            border: 1px solid #e2e8f0;
+        }
+        h2 {
+            margin-top: 0;
+            color: #0f172a;
+            font-size: 24px;
+        }
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 10px 14px 10px 38px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+        .search-box input:focus {
+            border-color: #2563eb;
+        }
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+        }
+        select {
+            padding: 10px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            background: white;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        th {
+            background-color: #f1f5f9;
+            color: #475569;
+            font-weight: 700;
+        }
+        tr:hover {
+            background-color: #f8fafc;
+        }
+        .reg-pill {
+            font-family: 'Consolas', monospace;
+            background: #eff6ff;
+            color: #2563eb;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .cgpa-badge {
+            font-weight: 700;
+            color: #059669;
+        }
+        .status-badge {
+            display: inline-block;
+            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            background: #dcfce7;
+            color: #166534;
+            font-weight: 600;
+        }
+        .record-counter {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>VIT Student Records &amp; Search Portal</h2>
+        <p style="color: #64748b; margin-bottom: 20px;">Search student database by Name, Registration Number, or Department filter.</p>
+
+        <div class="controls">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" placeholder="Type name or reg no (e.g. Leo Shiji, 23MIC0082)..." oninput="filterStudents()">
+            </div>
+            <select id="branchSelect" onchange="filterStudents()">
+                <option value="All">All Departments</option>
+                <option value="Integrated M.Tech CSE">Integrated M.Tech CSE</option>
+                <option value="B.Tech CSE">B.Tech CSE</option>
+                <option value="B.Tech IT">B.Tech IT</option>
+                <option value="B.Tech ECE">B.Tech ECE</option>
+            </select>
+        </div>
+
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Reg No</th>
+                        <th>Student Name</th>
+                        <th>Department</th>
+                        <th>Semester</th>
+                        <th>CGPA</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="studentTableBody">
+                    <!-- Populated dynamically -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="record-counter" id="counterText">Showing 6 enrolled students</div>
+    </div>
+
+    <script>
+        const students = [
+            { reg: "23MIC0082", name: "Leo Shiji", dept: "Integrated M.Tech CSE", sem: "Semester 4", cgpa: "7.97", status: "Active" },
+            { reg: "23MIC001", name: "Aarav Sharma", dept: "Integrated M.Tech CSE", sem: "Semester 4", cgpa: "8.65", status: "Active" },
+            { reg: "23BCE1042", name: "Ananya Iyer", dept: "B.Tech CSE", sem: "Semester 4", cgpa: "9.20", status: "Active" },
+            { reg: "23BIT0215", name: "Rohan Patel", dept: "B.Tech IT", sem: "Semester 4", cgpa: "7.90", status: "Active" },
+            { reg: "23BEC0512", name: "Diya Nair", dept: "B.Tech ECE", sem: "Semester 4", cgpa: "8.40", status: "Active" },
+            { reg: "23MIC018", name: "Kavya Menon", dept: "Integrated M.Tech CSE", sem: "Semester 4", cgpa: "8.85", status: "Active" }
+        ];
+
+        function filterStudents() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const branch = document.getElementById('branchSelect').value;
+            const tbody = document.getElementById('studentTableBody');
+
+            const filtered = students.filter(s => {
+                const matchesQuery = !query || s.name.toLowerCase().includes(query) || s.reg.toLowerCase().includes(query);
+                const matchesBranch = (branch === "All" || s.dept === branch);
+                return matchesQuery && matchesBranch;
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:30px; color:#94a3b8;">No matching student records found.</td></tr>`;
+            } else {
+                tbody.innerHTML = filtered.map(s => `
+                    <tr>
+                        <td><span class="reg-pill">${s.reg}</span></td>
+                        <td><strong>${s.name}</strong></td>
+                        <td>${s.dept}</td>
+                        <td>${s.sem}</td>
+                        <td><span class="cgpa-badge">${s.cgpa}</span></td>
+                        <td><span class="status-badge">${s.status}</span></td>
+                    </tr>
+                `).join('');
+            }
+
+            document.getElementById('counterText').textContent = `Showing ${filtered.length} of ${students.length} enrolled students`;
+        }
+
+        filterStudents();
+    </script>
+</body>
+</html>
+

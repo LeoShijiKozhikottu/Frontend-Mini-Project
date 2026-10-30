@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Events 2026 - Gravitas Fest</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .hero {
+            padding: 50px 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.25);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .fest-logo {
+            max-width: 280px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.5));
+        }
+        .event-card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.25s, box-shadow 0.25s;
+            height: 100%;
+        }
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+            border-color: #818cf8;
+        }
+        .event-badge {
+            background: #4f46e5;
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+        .btn-register {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            border: none;
+            font-weight: 700;
+            border-radius: 8px;
+            padding: 10px 20px;
+            width: 100%;
+            transition: opacity 0.2s;
+        }
+        .btn-register:hover {
+            opacity: 0.9;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <img src="gravitas-logo.jpg" alt="Gravitas Logo" class="fest-logo" onerror="this.style.display='none'">
+        <h1 class="display-5 fw-bold text-white mb-2">GRAVITAS 2026</h1>
+        <p class="lead text-info">VIT's Premier Annual International Technical Extravaganza</p>
+        <div class="badge bg-danger fs-6 px-3 py-2 mt-2">Registration Open for All Campuses</div>
+    </div>
+
+    <div class="container my-5">
+        <h2 class="text-center text-white mb-4">Featured Events &amp; Competitions</h2>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="event-card p-4 d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="event-badge">Hackathon</span>
+                        <span class="text-warning fw-bold">36 Hours</span>
+                    </div>
+                    <h4 class="text-white">CodeStorm Hackathon</h4>
+                    <p class="text-secondary small flex-grow-1">Build real-world AI, Web3, and Cloud solutions. Compete with 500+ teams for cash prizes up to ₹2,50,000.</p>
+                    <div class="mb-3 text-light small">📍 Anna Auditorium • Sept 18</div>
+                    <button class="btn btn-register" onclick="registerEvent('CodeStorm Hackathon')">Register Now</button>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="event-card p-4 d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="event-badge" style="background:#059669;">Robotics</span>
+                        <span class="text-warning fw-bold">₹1,00,000</span>
+                    </div>
+                    <h4 class="text-white">RoboWars Arena</h4>
+                    <p class="text-secondary small flex-grow-1">High-octane robotic combat clash! Wirelessly controlled heavyweight and featherweight bot combat.</p>
+                    <div class="mb-3 text-light small">📍 Outdoor Arena • Sept 19</div>
+                    <button class="btn btn-register" onclick="registerEvent('RoboWars Arena')">Register Now</button>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="event-card p-4 d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="event-badge" style="background:#db2777;">Esports</span>
+                        <span class="text-warning fw-bold">LAN Final</span>
+                    </div>
+                    <h4 class="text-white">Esports Championship</h4>
+                    <p class="text-secondary small flex-grow-1">Battle in Valorant, BGMI, and EA FC 24 tournaments streamed live with pro casters and trophies.</p>
+                    <div class="mb-3 text-light small">📍 Indoor Stadium • Sept 20</div>
+                    <button class="btn btn-register" onclick="registerEvent('Esports Championship')">Register Now</button>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="event-card p-4 d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="event-badge" style="background:#d97706;">Workshop</span>
+                        <span class="text-warning fw-bold">Hands-On</span>
+                    </div>
+                    <h4 class="text-white">GenAI Engineering</h4>
+                    <p class="text-secondary small flex-grow-1">Master LLMs, LangChain, and Agentic workflows with guest mentors from top Silicon Valley tech labs.</p>
+                    <div class="mb-3 text-light small">📍 TT Amphitheatre • Sept 21</div>
+                    <button class="btn btn-register" onclick="registerEvent('GenAI Workshop')">Register Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function registerEvent(name) {
+            alert(`🎉 Success! Registration request recorded for:\n"${name}"\nConfirmation email sent to student portal.`);
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>National Technical Symposium Registration Portal</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 30px 15px;
+            color: #333;
+        }
+        .portal-container {
+            max-width: 750px;
+            background: #ffffff;
+            padding: 40px;
+            margin: 0 auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        header {
+            text-align: center;
+            margin-bottom: 35px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            margin: 0 0 10px 0;
+            font-size: 28px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .sub-title {
+            color: #7f8c8d;
+            font-size: 16px;
+            margin: 0;
+        }
+        .media-block {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .media-title {
+            font-weight: bold;
+            color: #34495e;
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+        video {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 6px;
+            background-color: #000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        audio {
+            width: 100%;
+            max-width: 400px;
+            margin-top: 5px;
+        }
+        .form-section-title {
+            color: #2980b9;
+            font-size: 18px;
+            border-bottom: 1px solid #dcdde1;
+            padding-bottom: 8px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 22px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #2c3e50;
+        }
+        .inline-label {
+            display: inline-block;
+            font-weight: normal;
+            margin-right: 20px;
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        select,
+        input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        input:focus, select:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            background-color: #fff;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1
+            fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 600px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+        }
+        .selection-box {
+            padding-top: 4px;
+        }
+        .btn-container {
+            margin-top: 40px;
+            display: flex;
+            gap: 20px;
+        }
+        button {
+            flex: 1;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: transform 0.1s ease, background-color 0.2s ease;
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+        button[type="submit"] {
+            background-color: #3498db;
+            color: white;
+        }
+        button[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+        button[type="reset"] {
+            background-color: #95a5a6;
+            color: white;
+        }
+        button[type="reset"]:hover {
+            background-color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+
+<div class="portal-container">
+    <header>
+        <h1>National Technical Symposium</h1>
+        <p class="sub-title">Registration Portal</p>
+    </header>
+
+    <!-- Welcome & Promo Media Block -->
+    <div class="media-block">
+        <p class="media-title">🎵 Listen to the Welcome Message</p>
+        <audio controls>
+            <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
+            <source src="https://www.w3schools.com/html/horse.ogg" type="audio/ogg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <div class="media-block">
+        <p class="media-title">📺 Symposium Introductory Teaser</p>
+        <video controls poster="https://via.placeholder.com/600x340?text=Symposium+Teaser+Poster">
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            <source src="https://www.w3schools.com/html/mov_bbb.ogg" type="video/ogg">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <!-- Registration Form -->
+    <form action="#" method="POST" enctype="multipart/form-data">
+        
+        <div class="form-section-title">Personal & Academic Details</div>
+
+        <!-- Participant Name -->
+        <div class="form-group">
+            <label for="participantName">Participant Name</label>
+            <input type="text" id="participantName" name="participantName" placeholder="Enter your full name" required minlength="3" maxlength="60">
+        </div>
+
+        <div class="grid-2">
+            <!-- Register Number -->
+            <div class="form-group">
+                <label for="registerNumber">Register Number</label>
+                <input type="text" id="registerNumber" name="registerNumber" placeholder="e.g., 312218104001" pattern="[A-Za-z0-9]{8,15}" title="Enter a valid alphanumeric Register Number (8-15 characters)" required>
+            </div>
+
+            <!-- College Name -->
+            <div class="form-group">
+                <label for="collegeName">College Name</label>
+                <input type="text" id="collegeName" name="collegeName" placeholder="Enter college/university name" required minlength="5" maxlength="100">
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <!-- Email ID -->
+            <div class="form-group">
+                <label for="emailId">Email ID</label>
+                <input type="email" id="emailId" name="emailId" placeholder="username@domain.com" required>
+            </div>
+
+            <!-- Mobile Number -->
+            <div class="form-group">
+                <label for="mobileNumber">Mobile Number</label>
+                <input type="tel" id="mobileNumber" name="mobileNumber" placeholder="10-digit mobile number" pattern="[6-9][0-9]{9}" title="Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9" required>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <!-- Date of Birth -->
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" name="dob" required>
+            </div>
+
+            <!-- Gender -->
+            <div class="form-group">
+                <label>Gender</label>
+                <div class="selection-box">
+                    <label class="inline-label"><input type="radio" name="gender" value="male" required> Male</label>
+                    <label class="inline-label"><input type="radio" name="gender" value="female"> Female</label>
+                    <label class="inline-label"><input type="radio" name="gender" value="other"> Other</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Department -->
+        <div class="form-group">
+            <label for="department">Department</label>
+            <select id="department" name="department" required>
+                <option value="" disabled selected>Select your department</option>
+                <option value="cse">Computer Science & Engineering</option>
+                <option value="it">Information Technology</option>
+                <option value="ece">Electronics & Communication Engineering</option>
+                <option value="eee">Electrical & Electronics Engineering</option>
+                <option value="mech">Mechanical Engineering</option>
+                <option value="civil">Civil Engineering</option>
+            </select>
+        </div>
+
+        <div class="form-section-title">Event & Preferences</div>
+
+        <!-- Technical Skills -->
+        <div class="form-group">
+            <label>Technical Skills</label>
+            <div class="selection-box">
+                <label class="inline-label"><input type="checkbox" name="skills" value="c-cpp"> C / C++</label>
+                <label class="inline-label"><input type="checkbox" name="skills" value="java"> Java</label>
+                <label class="inline-label"><input type="checkbox" name="skills" value="python"> Python</label>
+                <label class="inline-label"><input type="checkbox" name="skills" value="web-dev"> Web Development</label>
+                <label class="inline-label"><input type="checkbox" name="skills" value="data-structures"> Data Structures</label>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <!-- Event Date -->
+            <div class="form-group">
+                <label for="eventDate">Event Date</label>

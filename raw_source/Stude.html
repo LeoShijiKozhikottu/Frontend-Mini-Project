@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration Form</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --success-color: #27ae60;
+            --error-color: #c0392b;
+            --border-color: #bdc3c7;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 30px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            max-width: 500px;
+            width: 100%;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            box-sizing: border-box;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #34495e;
+            padding-bottom: 10px;
+            font-size: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+            position: relative;
+        }
+
+        label.field-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .radio-group, .checkbox-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            padding: 4px 0;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            color: #555;
+        }
+
+        .option-label input {
+            cursor: pointer;
+            margin: 0;
+        }
+
+        /* Targeted Error Label Placements */
+        .error-msg {
+            color: var(--error-color);
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+            font-weight: 500;
+        }
+
+        /* General Status Form Feedback Messaging Alert Box */
+        #statusMessage {
+            display: none;
+            padding: 12px 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-size: 15px;
+            text-align: center;
+        }
+
+        .status-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #34495e;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Student Registration</h2>
+        
+        <!-- Successful Registration Output Banner Notification Box -->
+        <div id="statusMessage"></div>
+
+        <form id="studentForm" onsubmit="validateStudentForm(event)">
+            
+            <!-- Student Name Field Box -->
+            <div class="form-group">
+                <label class="field-label" id="nameLabel" for="studentName">Student Name</label>
+                <input type="text" id="studentName" placeholder="e.g. Jane Doe">
+                <div class="error-msg" id="nameError">Name must contain only alphabets and spaces.</div>
+            </div>
+
+            <!-- Email Address Field Box -->
+            <div class="form-group">
+                <label class="field-label" id="emailLabel" for="emailId">Email ID</label>
+                <input type="text" id="emailId" placeholder="e.g. jane.doe@example.com">
+                <div class="error-msg" id="emailError">Please enter a valid email format.</div>
+            </div>
+
+            <!-- Gender Choices Segment Selection Options -->
+            <div class="form-group">
+                <label class="field-label" id="genderLabel">Gender</label>
+                <div class="radio-group">
+                    <label class="option-label"><input type="radio" name="gender" value="Male"> Male</label>
+                    <label class="option-label"><input type="radio" name="gender" value="Female"> Female</label>
+                    <label class="option-label"><input type="radio" name="gender" value="Other"> Other</label>
+                </div>
+                <div class="error-msg" id="genderError">Please select a gender option.</div>
+            </div>
+
+            <!-- Developer Skills Multi Choice Checklist Grid Segment -->
+            <div class="form-group">
+                <label class="field-label" id="skillsLabel">Skills</label>
+                <div class="checkbox-group">
+                    <label class="option-label"><input type="checkbox" name="skills" value="HTML"> HTML</label>
+                    <label class="option-label"><input type="checkbox" name="skills" value="CSS"> CSS</label>
+                    <label class="option-label"><input type="checkbox" name="skills" value="JavaScript"> JavaScript</label>
+                </div>
+                <div class="error-msg" id="skillsError">Please select at least one skill.</div>
+            </div>
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <script>
+        function validateStudentForm(event) {
+            // Halt browser processing default reloads on execution routines
+            event.preventDefault();
+
+            // Set state trackers
+            let isValid = true;
+
+            // Extract element string inputs values 
+            const nameValue = document.getElementById('studentName').value.trim();
+            const emailValue = document.getElementById('emailId').value.trim();
+            
+            // Extract selected nodes elements
+            const genderSelected = document.querySelector('input[name="gender"]:checked');
+            const skillsChecked = document.querySelectorAll('input[name="skills"]:checked');
+
+            // Collect targeted reference handles to error label element spaces
+            const nameError = document.getElementById('nameError');
+            const emailError = document.getElementById('emailError');
+            const genderError = document.getElementById('genderError');
+            const skillsError = document.getElementById('skillsError');
+            const statusMessage = document.getElementById('statusMessage');
+
+            // Reset current errors interface presentation layers cleanly before evaluation
+            nameError.style.display = 'none';
+            emailError.style.display = 'none';
+            genderError.style.display = 'none';
+            skillsError.style.display = 'none';
+            statusMessage.style.display = 'none';
+            statusMessage.className = '';
+
+            // 1. Student Name Regex Checking (Accepts only lower/upper alphabets and inner spacers)
+            const nameRegex = /^[A-Za-z\s]+$/;
+            if (nameValue === "" || !nameRegex.test(nameValue)) {
+                nameError.style.display = 'block';
+                isValid = false;
+            }
+
+            // 2. Email Address Standard Format Pattern Validation Matcher 
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (emailValue === "" || !emailRegex.test(emailValue)) {
+                emailError.style.display = 'block';
+                isValid = false;
+            }
+
+            // 3. Radio Option Check Verification (Requires active non-null node reference)
+            if (!genderSelected) {
+                genderError.style.display = 'block';
+                isValid = false;
+            }
+
+            // 4. Checklist Array Validation Rule Verification (Evaluates selected lengths)
+            if (skillsChecked.length === 0) {
+                skillsError.style.display = 'block';
+                isValid = false;
+            }
+
+            // End form processing execution logic routing parameters upon encountering invalid states
+            if (!isValid) {
+                return;
+            }
+
+            // Render confirmation banner block upon validation success
+            statusMessage.innerText = "Registration Successful";
+            statusMessage.className = "status-success";
+            statusMessage.style.display = 'block';
+
+            // Optional structural clear framework reset logic
+            document.getElementById('studentForm').reset();
+        }
+    </script>
+</body>
+</html>

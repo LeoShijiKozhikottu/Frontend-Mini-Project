@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Product Card</title>
+    <style>
+        :root {
+            --bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --primary: #0284c7;
+            --accent-color: #0f172a;
+            --text-dark: #0f172a;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+        .product-card {
+            background: var(--card-bg);
+            max-width: 380px;
+            width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #e2e8f0;
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+        .image-container {
+            height: 220px;
+            background: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: background 0.3s;
+            font-size: 72px;
+        }
+        .badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #ef4444;
+            color: white;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .card-body {
+            padding: 24px;
+        }
+        .category {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+        .title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0 0 10px;
+        }
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: #f59e0b;
+            margin-bottom: 15px;
+        }
+        .rating span {
+            color: #64748b;
+        }
+        .price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+        .current-price {
+            font-size: 24px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+        .old-price {
+            font-size: 15px;
+            color: #94a3b8;
+            text-decoration: line-through;
+        }
+        .swatch-group {
+            margin-bottom: 20px;
+        }
+        .swatch-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 8px;
+        }
+        .swatches {
+            display: flex;
+            gap: 10px;
+        }
+        .swatch {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 0 0 1px #cbd5e1;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .swatch.active {
+            transform: scale(1.15);
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .qty-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            background: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            transition: 0.2s;
+        }
+        .qty-btn:hover {
+            background: #f1f5f9;
+        }
+        .qty-display {
+            font-weight: 700;
+            font-size: 15px;
+            min-width: 24px;
+            text-align: center;
+        }
+        .btn-add {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+        .btn-add:hover {
+            background: #0369a1;
+        }
+        .btn-add:active {
+            transform: scale(0.98);
+        }
+        .toast {
+            display: none;
+            background: #10b981;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 15px;
+            text-align: center;
+            animation: fadeIn 0.3s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="product-card">
+        <div class="image-container" id="productHero" style="background: linear-gradient(135deg, #1e293b, #0f172a);">
+            <span class="badge">SALE -25%</span>
+            <span id="productIcon">🎧</span>
+        </div>
+
+        <div class="card-body">
+            <div class="category">Audio &amp; Acoustics</div>
+            <h2 class="title">SonicPro Wireless ANC Headphones</h2>
+            
+            <div class="rating">
+                ★★★★★ <span>4.9 (1,420 ratings)</span>
+            </div>
+
+            <div class="price-row">
+                <span class="current-price" id="priceDisplay">₹2,999</span>
+                <span class="old-price">₹3,999</span>
+            </div>
+
+            <div class="swatch-group">
+                <div class="swatch-label">Color: <span id="colorName">Midnight Black</span></div>
+                <div class="swatches">
+                    <div class="swatch active" style="background: #0f172a;" onclick="setColor('#0f172a', 'linear-gradient(135deg, #1e293b, #0f172a)', 'Midnight Black', this)"></div>
+                    <div class="swatch" style="background: #0284c7;" onclick="setColor('#0284c7', 'linear-gradient(135deg, #38bdf8, #0284c7)', 'Ocean Blue', this)"></div>
+                    <div class="swatch" style="background: #ec4899;" onclick="setColor('#ec4899', 'linear-gradient(135deg, #f472b6, #db2777)', 'Rose Pink', this)"></div>
+                    <div class="swatch" style="background: #10b981;" onclick="setColor('#10b981', 'linear-gradient(135deg, #34d399, #059669)', 'Emerald Green', this)"></div>
+                </div>
+            </div>
+
+            <div class="qty-controls">
+                <span style="font-size: 13px; font-weight: 600; color: #475569;">Quantity:</span>
+                <button class="qty-btn" onclick="updateQty(-1)">-</button>
+                <span class="qty-display" id="qtyDisplay">1</span>
+                <button class="qty-btn" onclick="updateQty(1)">+</button>
+            </div>
+
+            <button class="btn-add" onclick="addToCart()">Add to Shopping Cart</button>
+            <div class="toast" id="toastMsg">✓ Added to cart successfully!</div>
+        </div>
+    </div>
+
+    <script>
+        const unitPrice = 2999;
+        let qty = 1;
+
+        function setColor(hex, bg, name, el) {
+            document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+            el.classList.add('active');
+            document.getElementById('colorName').textContent = name;
+            document.getElementById('productHero').style.background = bg;
+        }
+
+        function updateQty(change) {
+            qty = Math.max(1, qty + change);
+            document.getElementById('qtyDisplay').textContent = qty;
+            const total = (unitPrice * qty).toLocaleString('en-IN');
+            document.getElementById('priceDisplay').textContent = `₹${total}`;
+        }
+
+        function addToCart() {
+            const toast = document.getElementById('toastMsg');
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 2500);
+        }
+    </script>
+</body>
+</html>
+

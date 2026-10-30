@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinical Patient Registration Portal</title>
+    <style>
+        /* Modern Reset and CSS Variables */
+        :root {
+            --primary: #2b6cb0;
+            --primary-hover: #1a56db;
+            --text-dark: #2d3748;
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --border-color: #cbd5e0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg-gradient);
+            margin: 0;
+            padding: 40px 20px;
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Container & Box Model */
+        .form-container {
+            max-width: 850px;
+            width: 100%;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-sizing: border-box;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 35px;
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 20px;
+        }
+
+        h2 {
+            margin: 0;
+            color: #4a5568;
+            font-size: 28px;
+        }
+
+        p.subtitle {
+            margin: 5px 0 0 0;
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* Form Layout using CSS Grid */
+        .registration-form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        /* Full-width elements overrides */
+        .full-width {
+            grid-column: span 2;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #4a5568;
+        }
+
+        /* Input Controls Styling */
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="date"],
+        input[type="time"],
+        input[type="datetime-local"],
+        input[type="url"],
+        input[type="search"],
+        select,
+        textarea {
+            padding: 12px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+            width: 100%;
+            transition: all 0.3s ease;
+            background-color: #f7fafc;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.25);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* Specific Input Field Resizes */
+        input[type="color"] {
+            width: 60px;
+            height: 40px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            padding: 2px;
+            background: none;
+        }
+
+        input[type="file"] {
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        /* Range/Pain Level Slider Box */
+        .range-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        input[type="range"] {
+            flex: 1;
+            cursor: pointer;
+        }
+
+        /* Choices Blocks (Flexbox rows) */
+        .choices-block {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding-top: 5px;
+        }
+
+        .inline-label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+            font-size: 14px;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .inline-label input {
+            margin-right: 6px;
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Form Actions & Custom Image Buttons */
+        .form-actions {
+            grid-column: span 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            border-top: 2px solid #edf2f7;
+            padding-top: 25px;
+            gap: 15px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 15px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        button[type="submit"] {
+            background-color: var(--primary);
+            color: #ffffff;
+        }
+
+        button[type="submit"]:hover {
+            background-color: var(--primary-hover);
+        }
+
+        button[type="reset"] {
+            background-color: #e2e8f0;
+            color: #4a5568;
+        }
+
+        button[type="reset"]:hover {
+            background-color: #cbd5e0;
+        }
+
+        /* Image Input Type Component */
+        .image-button-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .image-button-group span {
+            font-size: 11px;
+            color: #718096;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        input[type="image"] {
+            height: 44px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        input[type="image"]:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Breakpoint */
+        @media (max-width: 680px) {
+            .registration-form {
+                grid-template-columns: 1fr;
+            }
+            .full-width, .form-actions {
+                grid-column: span 1;
+            }
+            .form-actions {
+                flex-direction: column-reverse;
+                align-items: stretch;
+            }
+            .image-button-group {
+                align-items: center;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <header>
+        <h2>Patient Registration Portal</h2>
+        <p class="subtitle">Please completely fill out the clinical admission fields below</p>
+    </header>
+
+    <form class="registration-form" action="#" method="POST" enctype="multipart/form-data">
+        
+        <!-- Hidden Patient ID -->
+        <input type="hidden" id="patientId" name="patientId" value="PT-2026-98431">
+
+        <!-- Patient Name -->
+        <div class="form-group">
+            <label for="patientName">Patient Name</label>
+            <input type="text" id="patientName" name="patientName" placeholder="Johnathan Doe" required minlength="2" maxlength="70">
+        </div>
+
+        <!-- Email Address -->
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="johndoe@medical.com" required>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+            <label for="password">Portal Password</label>
+            <input type="password" id="password" name="password" placeholder="Min 8 characters" minlength="8" required>
+        </div>
+
+        <!-- Contact Number -->
+        <div class="form-group">
+            <label for="contactNumber">Contact Number</label>
+            <input type="tel" id="contactNumber" name="contactNumber" placeholder="10-digit phone number" pattern="[0-9]{10}" title="Please provide a valid 10-digit number" required>
+        </div>
+
+        <!-- Age -->
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" min="0" max="125" placeholder="Years" required>
+        </div>
+
+        <!-- Date of Birth -->
+        <div class="form-group">
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" name="dob" max="2026-12-31" required>
+        </div>
+
+        <!-- Appointment Time -->
+        <div class="form-group">
+            <label for="appointmentTime">Preferred Appointment Time</label>
+            <input type="time" id="appointmentTime" name="appointmentTime" required>
+        </div>
+
+        <!-- Appointment Date & Time -->
+        <div class="form-group">
+            <label for="appointmentDateTime">Urgent Slot (Date & Time)</label>
+            <input type="datetime-local" id="appointmentDateTime" name="appointmentDateTime">
+        </div>
+
+        <!-- Personal Website/Reference -->
+        <div class="form-group">
+            <label for="referenceUrl">Insurance/Personal Health Link</label>
+            <input type="url" id="referenceUrl" name="referenceUrl" placeholder="https://example.com">
+        </div>
+
+        <!-- Search Doctor -->
+        <div class="form-group">
+            <label for="searchDoctor">Search Assigned Practitioner</label>
+            <input type="search" id="searchDoctor" name="searchDoctor" placeholder="Type doctor name...">
+        </div>
+
+        <!-- Blood Group -->
+        <div class="form-group">
+            <label for="bloodGroup">Blood Group</label>
+            <select id="bloodGroup" name="bloodGroup" required>
+                <option value="" disabled selected>Select Blood Type</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>

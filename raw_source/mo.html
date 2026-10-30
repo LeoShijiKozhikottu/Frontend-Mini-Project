@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Traffic Signal</title>
+    <style>
+        /* Center the application layout */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f2f5;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        /* The black traffic light housing */
+        .traffic-light {
+            width: 110px;
+            height: 320px;
+            background-color: #222;
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+
+        /* Base style for all three circular lights */
+        .light {
+            width: 80px;
+            height: 80px;
+            background-color: #444; /* Dimmed/off state */
+            border-radius: 50%;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+
+        /* Active hover states with matching glows */
+        .light.red-active:hover {
+            background-color: #ff3b30;
+            box-shadow: 0 0 20px #ff3b30;
+        }
+
+        .light.yellow-active:hover {
+            background-color: #ffcc00;
+            box-shadow: 0 0 20px #ffcc00;
+        }
+
+        .light.green-active:hover {
+            background-color: #4cd964;
+            box-shadow: 0 0 20px #4cd964;
+        }
+
+        /* Dynamic action status text container */
+        #status-message {
+            margin-top: 30px;
+            font-size: 2rem;
+            font-weight: bold;
+            height: 40px;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Traffic Light Structure -->
+    <div class="traffic-light">
+        <div class="light red-active" id="red"></div>
+        <div class="light yellow-active" id="yellow"></div>
+        <div class="light green-active" id="green"></div>
+    </div>
+
+    <!-- Target area for interaction text -->
+    <div id="status-message"></div>
+
+    <script>
+        // Select elements from the DOM
+        const redLight = document.getElementById('red');
+        const yellowLight = document.getElementById('yellow');
+        const greenLight = document.getElementById('green');
+        const statusMessage = document.getElementById('status-message');
+
+        // Helper function to handle mouse entering a light zone
+        function handleMouseEnter(message, color) {
+            statusMessage.textContent = message;
+            statusMessage.style.color = color;
+        }
+
+        // Helper function to handle mouse exiting a light zone
+        function handleMouseLeave() {
+            statusMessage.textContent = '';
+        }
+
+        // Red light mouse event listeners
+        redLight.addEventListener('mouseover', () => handleMouseEnter('STOP', '#ff3b30'));
+        redLight.addEventListener('mouseout', handleMouseLeave);
+
+        // Yellow light mouse event listeners
+        yellowLight.addEventListener('mouseover', () => handleMouseEnter('READY', '#ffcc00'));
+        yellowLight.addEventListener('mouseout', handleMouseLeave);
+
+        // Green light mouse event listeners
+        greenLight.addEventListener('mouseover', () => handleMouseEnter('GO', '#4cd964'));
+        greenLight.addEventListener('mouseout', handleMouseLeave);
+    </script>
+
+</body>
+</html>

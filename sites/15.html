@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Search Engine</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg: #f8fafc;
+            --text: #0f172a;
+            --muted: #64748b;
+            --border: #e2e8f0;
+        }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        .header {
+            background: #ffffff;
+            border-bottom: 1px solid var(--border);
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+        .logo span {
+            color: #ef4444;
+        }
+        .search-box-wrapper {
+            flex: 1;
+            max-width: 650px;
+            position: relative;
+        }
+        .search-input {
+            width: 100%;
+            padding: 12px 45px 12px 18px;
+            font-size: 15px;
+            border: 2px solid var(--border);
+            border-radius: 25px;
+            outline: none;
+            transition: 0.2s;
+            box-sizing: border-box;
+        }
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+        .search-icon {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted);
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .tabs {
+            display: flex;
+            gap: 15px;
+            padding: 12px 40px;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .tab {
+            color: var(--muted);
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 6px;
+            transition: 0.2s;
+        }
+        .tab:hover, .tab.active {
+            color: var(--primary);
+            background: #eff6ff;
+        }
+        .main-content {
+            max-width: 900px;
+            margin: 30px 40px;
+        }
+        .result-meta {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 25px;
+        }
+        .result-item {
+            margin-bottom: 30px;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .result-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .result-url {
+            font-size: 12px;
+            color: #059669;
+            margin-bottom: 4px;
+            display: block;
+        }
+        .result-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary);
+            text-decoration: none;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+        .result-title:hover {
+            text-decoration: underline;
+        }
+        .result-desc {
+            font-size: 14px;
+            color: #475569;
+            line-height: 1.5;
+            margin: 0;
+        }
+        .tag-pill {
+            display: inline-block;
+            background: #f1f5f9;
+            color: #475569;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 12px;
+            margin-top: 10px;
+            margin-right: 6px;
+        }
+        .trending {
+            margin-top: 10px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+        .trending a {
+            color: var(--primary);
+            margin-left: 8px;
+            text-decoration: none;
+        }
+        .trending a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">Smart<span>Search</span></div>
+        <div class="search-box-wrapper">
+            <input type="text" id="queryInput" class="search-input" placeholder="Search web technologies, VIT courses, algorithms..." value="Web Technologies" oninput="executeSearch()">
+            <span class="search-icon" onclick="executeSearch()">🔍</span>
+        </div>
+    </div>
+
+    <div class="tabs">
+        <div class="tab active" onclick="switchCategory('All', this)">All Results</div>
+        <div class="tab" onclick="switchCategory('Academic', this)">Academic &amp; Research</div>
+        <div class="tab" onclick="switchCategory('Code', this)">Code &amp; Tutorials</div>
+        <div class="tab" onclick="switchCategory('VIT', this)">VIT Campus</div>
+    </div>
+
+    <div class="main-content">
+        <div class="result-meta" id="resultMeta">Showing 5 smart results (0.18 seconds)</div>
+        <div id="resultsContainer"></div>
+    </div>
+
+    <script>
+        const database = [
+            {
+                title: "Introduction to HTML5 & Modern Semantic Web Architecture",
+                url: "https://developer.mozilla.org/docs/Web/HTML",
+                desc: "Learn modern semantic HTML5 elements including header, nav, main, section, article, and aside for accessible, structured web authoring.",
+                category: "Academic",
+                tags: ["HTML5", "Semantics", "Web Dev"]
+            },
+            {
+                title: "VIT University School of Computer Science & Engineering (SCOPE)",
+                url: "https://vit.ac.in/schools/scope",
+                desc: "Integrated M.Tech and B.Tech CSE syllabus, faculty profiles, advanced software engineering curriculum, and student lab assignments.",
+                category: "VIT",
+                tags: ["VIT", "Academics", "SCOPE"]
+            },
+            {
+                title: "Mastering CSS Grid and Responsive Layout Design",
+                url: "https://css-tricks.com/snippets/css/complete-guide-grid/",
+                desc: "Comprehensive visual guide to CSS Grid layout, flexbox alignment, aspect ratio scaling, media queries, and responsive viewport design.",
+                category: "Code",
+                tags: ["CSS3", "Responsive", "Grid"]
+            },
+            {
+                title: "JavaScript DOM Events, Async Execution, and Form Validation",
+                url: "https://javascript.info/events",
+                desc: "Explore event listeners, keyboard navigation, input pattern matching, regex validation, and dynamic client-side rendering.",
+                category: "Code",
+                tags: ["JavaScript", "DOM", "Validation"]
+            },
+            {
+                title: "Bootstrap 5 Component Framework and Modern UI Utilities",
+                url: "https://getbootstrap.com/docs/5.3/getting-started/introduction/",
+                desc: "Fast, responsive web development with Bootstrap grid system, modals, badges, cards, and pre-styled accessible components.",
+                category: "Academic",
+                tags: ["Bootstrap", "UI/UX", "Framework"]
+            }
+        ];
+
+        let currentCat = "All";
+
+        function switchCategory(cat, el) {
+            currentCat = cat;
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            executeSearch();
+        }
+
+        function executeSearch() {
+            const q = document.getElementById('queryInput').value.toLowerCase().trim();
+            const container = document.getElementById('resultsContainer');
+            const meta = document.getElementById('resultMeta');
+
+            const filtered = database.filter(item => {
+                const matchesCat = (currentCat === "All" || item.category === currentCat);
+                const matchesText = !q || item.title.toLowerCase().includes(q) || item.desc.toLowerCase().includes(q) || item.tags.some(t => t.toLowerCase().includes(q));
+                return matchesCat && matchesText;
+            });
+
+            meta.textContent = `Showing ${filtered.length} smart results (${(Math.random() * 0.15 + 0.08).toFixed(2)} seconds)`;
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div style="padding: 40px; text-align: center; color: #94a3b8;">
+                    <h3>No results found for "${q}"</h3>
+                    <p>Try searching for "HTML", "VIT", "CSS", or "JavaScript".</p>
+                </div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map(item => `
+                <div class="result-item">
+                    <span class="result-url">${item.url}</span>
+                    <a href="${item.url}" target="_blank" class="result-title">${item.title}</a>
+                    <p class="result-desc">${item.desc}</p>
+                    <div>
+                        ${item.tags.map(t => `<span class="tag-pill">${t}</span>`).join('')}
+                        <span class="tag-pill" style="background:#e0f2fe; color:#0284c7;">${item.category}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        executeSearch();
+    </script>
+</body>
+</html>
+

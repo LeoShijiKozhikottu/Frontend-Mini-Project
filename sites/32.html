@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Weather Display</title>
+    <style>
+        /* Modern application setup */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f3f4f6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+        }
+
+        /* Container for the weather cards */
+        .weather-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* Base panel rules */
+        .weather-card {
+            width: 140px;
+            height: 160px;
+            background-color: #ffffff;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+        }
+
+        /* Icon layout adjustments */
+        .weather-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        /* Simple text indicator inside the card */
+        .weather-label {
+            font-size: 1rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        /* Sunny hover transformation */
+        .weather-card.sunny:hover {
+            transform: translateY(-8px);
+            background-color: #fffde7;
+            box-shadow: 0 12px 20px rgba(253, 216, 53, 0.3);
+        }
+
+        /* Cloudy hover transformation */
+        .weather-card.cloudy:hover {
+            transform: translateY(-8px);
+            background-color: #f5f5f5;
+            box-shadow: 0 12px 20px rgba(158, 158, 158, 0.3);
+        }
+
+        /* Rainy hover transformation */
+        .weather-card.rainy:hover {
+            transform: translateY(-8px);
+            background-color: #e3f2fd;
+            box-shadow: 0 12px 20px rgba(33, 150, 243, 0.3);
+        }
+
+        /* Dynamic message container */
+        #weather-message {
+            margin-top: 40px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            height: 35px;
+            color: #333;
+            transition: color 0.2s ease;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Weather Dashboard Grid -->
+    <div class="weather-container">
+        <div class="weather-card sunny" id="sunny-panel">
+            <span class="weather-icon">☀️</span>
+            <span class="weather-label">Sunny</span>
+        </div>
+        <div class="weather-card cloudy" id="cloudy-panel">
+            <span class="weather-icon">☁️</span>
+            <span class="weather-label">Cloudy</span>
+        </div>
+        <div class="weather-card rainy" id="rainy-panel">
+            <span class="weather-icon">🌧️</span>
+            <span class="weather-label">Rainy</span>
+        </div>
+    </div>
+    <!-- Active Message Target Box -->
+    <div id="weather-message"></div>
+    <script>
+        // DOM element node selection
+        const sunnyPanel = document.getElementById('sunny-panel');
+        const cloudyPanel = document.getElementById('cloudy-panel');
+        const rainyPanel = document.getElementById('rainy-panel');
+        const weatherMessage = document.getElementById('weather-message');
+
+        // Logic to update status and colors on entry
+        function displayStatus(text, textHexColor) {
+            weatherMessage.textContent = text;
+            weatherMessage.style.color = textHexColor;
+        }
+
+        // Logic to wipe status clean on exit
+        function clearStatus() {
+            weatherMessage.textContent = '';
+        }
+
+        // Event attachments for Sunny panel
+        sunnyPanel.addEventListener('mouseover', () => displayStatus('Perfect Day!', '#fbc02d'));
+        sunnyPanel.addEventListener('mouseout', clearStatus);
+
+        // Event attachments for Cloudy panel
+        cloudyPanel.addEventListener('mouseover', () => displayStatus('Cloudy Weather', '#757575'));
+        cloudyPanel.addEventListener('mouseout', clearStatus);
+
+        // Event attachments for Rainy panel
+        rainyPanel.addEventListener('mouseover', () => displayStatus('Carry an Umbrella!', '#1976d2'));
+        rainyPanel.addEventListener('mouseout', clearStatus);
+    </script>
+</body>
+</html>

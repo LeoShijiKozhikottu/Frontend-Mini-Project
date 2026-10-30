@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090d16">
+  <title>Live Project Runner — WebLab Hub</title>
+  <link rel="stylesheet" href="site.css">
+  <script src="app.js" defer></script>
+</head>
+<body data-page="site">
+
+  <!-- Top Runner Navigation Bar -->
+  <header class="runner-nav">
+    <div class="runner-left">
+      <a class="btn-back" href="gallery.html">
+        <span>←</span> Hub Catalog
+      </a>
+      <a class="btn-back" href="index.html" style="background:transparent; border-color:transparent;">
+        <span>📑</span> Stream Feed
+      </a>
+
+      <div class="runner-title-group">
+        <span class="runner-num-badge" id="runnerNum">#01</span>
+        <h1 class="runner-title" id="runnerTitle">Project Title</h1>
+        <span class="runner-cat-badge" id="runnerCategory">Category</span>
+      </div>
+    </div>
+
+    <!-- Responsive Viewport Simulator Controls -->
+    <div class="viewport-toolbar">
+      <button class="vp-btn active" onclick="setDeviceViewport('desktop', this)">🖥️ Desktop</button>
+      <button class="vp-btn" onclick="setDeviceViewport('tablet', this)">📱 Tablet (768px)</button>
+      <button class="vp-btn" onclick="setDeviceViewport('mobile', this)">📱 Mobile (375px)</button>
+    </div>
+
+    <!-- Right Actions -->
+    <div class="runner-actions">
+      <button class="btn-action-tool" onclick="cycleThemePalette()" title="Switch Theme Color Palette">🎨 <span id="paletteName">Aurora Teal</span></button>
+      <button class="btn-action-tool" onclick="reloadRunnerFrame()" title="Reload project frame">🔄 Reload</button>
+      <a class="btn-action-tool" id="btnRawSite" href="#" target="_blank" title="Open directly in standalone tab">↗ Open Standalone</a>
+    </div>
+  </header>
+
+  <!-- Viewport Preview Stage -->
+  <main class="viewport-stage" id="site-view">
+    <div class="stage-device-frame" id="deviceFrame">
+      <iframe id="runnerIframe" src="" title="Live Project Viewer"></iframe>
+    </div>
+  </main>
+
+  <!-- Bottom Navigation & Quick Jump Footer -->
+  <footer class="runner-footer">
+    <div id="prevNavContainer">
+      <!-- Dynamic Previous Button -->
+    </div>
+
+    <div>
+      <select class="jump-select" id="quickJumpSelect" onchange="jumpToProject(this.value)">
+        <!-- Populated by app.js -->
+      </select>
+    </div>
+
+    <div id="nextNavContainer">
+      <!-- Dynamic Next Button -->
+    </div>
+  </footer>
+
+</body>
+</html>
+

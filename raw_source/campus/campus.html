@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campus Image Viewer</title>
+
+<style>
+    body {
+        text-align: center;
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin-top: 30px;
+    }
+
+    h2 {
+        color: #333;
+    }
+
+    img {
+        width: 700px;
+        height: 400px;
+        border: 4px solid #333;
+        border-radius: 10px;
+    }
+
+    #message {
+        margin-top: 15px;
+        font-size: 22px;
+        font-weight: bold;
+        color: green;
+    }
+</style>
+</head>
+<body>
+
+<h2>Campus Image Viewer</h2>
+
+<img id="campusImage" src="campus1.jpg" alt="Campus Image">
+
+<div id="message"></div>
+
+<script>
+    // Array of campus images
+    const images = [
+        "campus1.jpg",
+        "campus2.jpg",
+        "campus3.jpg",
+        "campus4.jpg"
+    ];
+
+    let currentIndex = 0;
+
+    const imageElement = document.getElementById("campusImage");
+    const messageElement = document.getElementById("message");
+
+    document.addEventListener("keydown", function(event) {
+
+        // Right Arrow Key
+        if (event.key === "ArrowRight") {
+            currentIndex = (currentIndex + 1) % images.length;
+            imageElement.src = images[currentIndex];
+            messageElement.innerHTML = "";
+        }
+
+        // Left Arrow Key
+        else if (event.key === "ArrowLeft") {
+            currentIndex =
+                (currentIndex - 1 + images.length) % images.length;
+            imageElement.src = images[currentIndex];
+            messageElement.innerHTML = "";
+        }
+
+        // Enter Key
+        else if (event.key === "Enter") {
+            messageElement.innerHTML = "Image Selected";
+        }
+    });
+</script>
+
+</body>
+</html>

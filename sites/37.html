@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Examination Portal - Web Technologies</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f1f5f9;
+            color: #0f172a;
+            margin: 0;
+            padding: 25px 15px;
+        }
+        .exam-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+        }
+        .exam-header {
+            background: #1e293b;
+            color: white;
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .exam-header h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+        .timer-box {
+            background: #ef4444;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .exam-body {
+            padding: 25px;
+        }
+        .q-card {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .q-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1e293b;
+        }
+        .option-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 14px;
+        }
+        .option-label:hover {
+            background: #f8fafc;
+            border-color: #0284c7;
+        }
+        .option-label input[type="radio"] {
+            margin: 0;
+        }
+        .btn-submit {
+            background: #059669;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-submit:hover {
+            background: #047857;
+        }
+        .result-panel {
+            display: none;
+            padding: 30px;
+            text-align: center;
+        }
+        .score-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #ecfdf5;
+            color: #059669;
+            display: grid;
+            place-items: center;
+            font-size: 28px;
+            font-weight: 800;
+            margin: 0 auto 20px;
+            border: 4px solid #10b981;
+        }
+    </style>
+</head>
+<body>
+    <div class="exam-container">
+        <div class="exam-header">
+            <div>
+                <h2>VIT Web Tech Mid-Term Exam</h2>
+                <div style="font-size: 12px; color: #94a3b8;">Candidate: Leo Shiji (23MIC0082)</div>
+            </div>
+            <div class="timer-box" id="timer">Time Remaining: 09:45</div>
+        </div>
+
+        <div class="exam-body" id="quizForm">
+            <div class="q-card">
+                <div class="q-title">1. Which HTML5 tag is used to specify navigation links?</div>
+                <label class="option-label"><input type="radio" name="q1" value="0"> &lt;navigation&gt;</label>
+                <label class="option-label"><input type="radio" name="q1" value="1"> &lt;nav&gt;</label>
+                <label class="option-label"><input type="radio" name="q1" value="0"> &lt;navigate&gt;</label>
+                <label class="option-label"><input type="radio" name="q1" value="0"> &lt;menu-bar&gt;</label>
+            </div>
+
+            <div class="q-card">
+                <div class="q-title">2. In CSS box model, what order represents spacing from outside to inside?</div>
+                <label class="option-label"><input type="radio" name="q2" value="1"> Margin &gt; Border &gt; Padding &gt; Content</label>
+                <label class="option-label"><input type="radio" name="q2" value="0"> Padding &gt; Margin &gt; Border &gt; Content</label>
+                <label class="option-label"><input type="radio" name="q2" value="0"> Border &gt; Margin &gt; Padding &gt; Content</label>
+                <label class="option-label"><input type="radio" name="q2" value="0"> Content &gt; Padding &gt; Border &gt; Margin</label>
+            </div>
+
+            <div class="q-card">
+                <div class="q-title">3. Which JavaScript method prevents a form from submitting and refreshing the page?</div>
+                <label class="option-label"><input type="radio" name="q3" value="0"> event.stopPropagation()</label>
+                <label class="option-label"><input type="radio" name="q3" value="1"> event.preventDefault()</label>
+                <label class="option-label"><input type="radio" name="q3" value="0"> form.halt()</label>
+                <label class="option-label"><input type="radio" name="q3" value="0"> window.pause()</label>
+            </div>
+
+            <div class="q-card">
+                <div class="q-title">4. Which CSS property allows elements to flexibly wrap into multiple lines?</div>
+                <label class="option-label"><input type="radio" name="q4" value="0"> flex-direction: wrap</label>
+                <label class="option-label"><input type="radio" name="q4" value="1"> flex-wrap: wrap</label>
+                <label class="option-label"><input type="radio" name="q4" value="0"> display: multi-row</label>
+                <label class="option-label"><input type="radio" name="q4" value="0"> grid-flow: line</label>
+            </div>
+
+            <button class="btn-submit" onclick="submitExam()">Submit Examination</button>
+        </div>
+
+        <div class="result-panel" id="resultPanel">
+            <div class="score-circle" id="scoreDisplay">4/4</div>
+            <h3 style="color: #059669; margin: 0 0 10px;">Examination Submitted Successfully!</h3>
+            <p id="feedbackText" style="color: #475569; font-size: 15px;"></p>
+            <button class="btn-submit" onclick="location.reload()" style="background:#0284c7; margin-top:15px;">Retake Exam</button>
+        </div>
+    </div>
+
+    <script>
+        let seconds = 585;
+        const timerEl = document.getElementById('timer');
+        const interval = setInterval(() => {
+            seconds--;
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            timerEl.textContent = `Time Remaining: ${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+            if (seconds <= 0) {
+                clearInterval(interval);
+                submitExam();
+            }
+        }, 1000);
+
+        function submitExam() {
+            clearInterval(interval);
+            let score = 0;
+            const answers = [
+                document.querySelector('input[name="q1"]:checked'),
+                document.querySelector('input[name="q2"]:checked'),
+                document.querySelector('input[name="q3"]:checked'),
+                document.querySelector('input[name="q4"]:checked')
+            ];
+
+            answers.forEach(a => {
+                if (a && a.value === "1") score++;
+            });
+
+            document.getElementById('quizForm').style.display = 'none';
+            const panel = document.getElementById('resultPanel');
+            panel.style.display = 'block';
+            document.getElementById('scoreDisplay').textContent = `${score}/4`;
+            document.getElementById('feedbackText').textContent = 
+                `You scored ${score * 25}% in Web Technologies Lab assessment. Excellent job, Leo Shiji!`;
+        }
+    </script>
+</body>
+</html>
+

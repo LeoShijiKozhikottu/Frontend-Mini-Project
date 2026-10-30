@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Web Server - Leo Shiji</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --accent: #38bdf8;
+            --success: #22c55e;
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --border: #334155;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 100%);
+            color: var(--text);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+        .container {
+            max-width: 650px;
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--success);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            margin-bottom: 20px;
+        }
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--success);
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
+        }
+        h1 {
+            margin: 0 0 10px;
+            font-size: 28px;
+            color: #fff;
+        }
+        .student-title {
+            color: var(--accent);
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .student-sub {
+            color: var(--muted);
+            font-size: 14px;
+            margin: 0 0 25px;
+        }
+        .server-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 25px 0;
+        }
+        .server-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+        }
+        .server-card .label {
+            font-size: 12px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .server-card .value {
+            font-size: 15px;
+            font-weight: 600;
+            color: #fff;
+            margin-top: 4px;
+            word-break: break-all;
+        }
+        .terminal-box {
+            background: #090d16;
+            border: 1px solid #1f293d;
+            border-radius: 6px;
+            padding: 14px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 13px;
+            color: #a5f3fc;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+        .btn-test {
+            margin-top: 20px;
+            background: var(--accent);
+            color: #0f172a;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-test:hover {
+            background: #7dd3fc;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="status-badge">
+            <span class="pulse-dot"></span> Local Server Online
+        </div>
+        <h1>Local Web Server</h1>
+        <div class="student-title">Leo Shiji <span style="font-size:14px; opacity:0.85;">(Reg No: 23MIC0082)</span></div>
+        <div class="student-sub">Integrated M.Tech (CSE) • CGPA: 7.97 • VIT University • Web Development Lab</div>
+
+        <div class="server-grid">
+            <div class="server-card">
+                <div class="label">Host &amp; Port</div>
+                <div class="value">localhost:8080</div>
+            </div>
+            <div class="server-card">
+                <div class="label">HTTP Protocol</div>
+                <div class="value">HTTP/1.1 (200 OK)</div>
+            </div>
+            <div class="server-card">
+                <div class="label">Client IP Address</div>
+                <div class="value">127.0.0.1 (Loopback)</div>
+            </div>
+            <div class="server-card">
+                <div class="label">Server Environment</div>
+                <div class="value">Node.js / Express Dev Server</div>
+            </div>
+        </div>
+
+        <div class="terminal-box" id="logBox">
+            [SYS_OK] Initialized HTTP Server on port 8080<br>
+            [CLIENT] Request GET / HTTP/1.1 from 127.0.0.1<br>
+            [STATUS] 200 OK — Delivered index document (Leo Shiji)
+        </div>
+
+        <button class="btn-test" onclick="runPingTest()">Execute Latency Ping</button>
+    </div>
+
+    <script>
+        function runPingTest() {
+            const box = document.getElementById('logBox');
+            const ping = (Math.random() * 2 + 0.4).toFixed(2);
+            const now = new Date().toLocaleTimeString();
+            box.innerHTML += `<br>[${now}] Ping 127.0.0.1: round-trip = ${ping}ms (TTL=64)`;
+        }
+    </script>
+</body>
+</html>
+

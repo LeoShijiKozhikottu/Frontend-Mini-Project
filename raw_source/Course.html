@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Registration Form</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #16a085;
+            --error: #e74c3c;
+            --bg: #ecf0f1;
+            --text: #2c3e50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 30px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form-card {
+            background: #ffffff;
+            max-width: 500px;
+            width: 100%;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+            margin-bottom: 25px;
+        }
+
+        h2 {
+            margin-top: 0;
+            margin-bottom: 25px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 8px;
+            font-size: 22px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        /* List Box styling for multiple selections */
+        select[multiple] {
+            height: 95px;
+            padding: 5px;
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 5px rgba(22, 160, 133, 0.2);
+        }
+
+        .instruction {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* Error Label Message Box */
+        .error-msg {
+            color: var(--error);
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+            font-weight: 500;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #117a65;
+        }
+
+        /* Display Results Container Area */
+        .summary-card {
+            display: none;
+            background: #ffffff;
+            max-width: 500px;
+            width: 100%;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+            border-left: 5px solid var(--secondary);
+        }
+
+        .summary-card h3 {
+            margin-top: 0;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .summary-item {
+            margin: 10px 0;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Course Registration Input Card -->
+    <div class="form-card">
+        <h2>Course Registration Form</h2>
+        
+        <form id="courseForm" onsubmit="validateCourseForm(event)">
+            
+            <!-- Student Name Input Block -->
+            <div class="form-group">
+                <label for="studentName">Student Name</label>
+                <input type="text" id="studentName" placeholder="Enter student's full name">
+                <div class="error-msg" id="nameError">Validation Failed: Name must contain only alphabets and spaces.</div>
+            </div>
+
+            <!-- Department Drop-down Drop Box Block -->
+            <div class="form-group">
+                <label for="department">Department</label>
+                <select id="department">
+                    <option value="CSE">Computer Science & Engineering (CSE)</option>
+                    <option value="IT">Information Technology (IT)</option>
+                    <option value="ECE">Electronics & Communication Engineering (ECE)</option>
+                    <option value="EEE">Electrical & Electronics Engineering (EEE)</option>
+                </select>
+            </div>
+
+            <!-- Programming Languages Multiple Choice List Box Block -->
+            <div class="form-group">
+                <label for="languages">Programming Languages</label>
+                <span class="instruction">(Hold Ctrl / Cmd to choose multiple options)</span>
+                <select id="languages" multiple>
+                    <option value="Java">Java</option>
+                    <option value="Python">Python</option>
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="C++">C++</option>
+                </select>
+                <div class="error-msg" id="langError">Please select at least one programming language.</div>
+            </div>
+
+            <button type="submit">Submit Registration</button>
+        </form>
+    </div>
+
+    <!-- Output Information Target Presentation Card -->
+    <div class="summary-card" id="summaryCard">
+        <h3>✓ Registration Successful</h3>
+        <div class="summary-item"><strong>Student Name:</strong> <span id="outName"></span></div>
+        <div class="summary-item"><strong>Selected Department:</strong> <span id="outDept"></span></div>
+        <div class="summary-item"><strong>Programming Languages:</strong> <span id="outLangs"></span></div>
+    </div>
+
+    <script>
+        function validateCourseForm(event) {
+            // Prevent default post reload behaviors to process scripts
+            event.preventDefault();
+
+            // Clear previous execution tracking flags
+            let isFormValid = true;
+
+            // Extract targeted values from basic input spaces
+            const nameField = document.getElementById('studentName');
+            const nameValue = nameField.value.trim();
+            const deptValue = document.getElementById('department').value;
+            
+            // Extract multiple selections from list box element
+            const langOptions = document.getElementById('languages').options;
+            const selectedLanguages = [];
+            
+            for (let i = 0; i < langOptions.length; i++) {
+                if (langOptions[i].selected) {
+                    selectedLanguages.push(langOptions[i].value);
+                }
+            }
+
+            // Gather elements handling warning feedback targets
+            const nameError = document.getElementById('nameError');
+            const langError = document.getElementById('langError');
+            const summaryCard = document.getElementById('summaryCard');
+
+            // Reset current interface error display layout positions cleanly
+            nameError.style.display = 'none';
+            langError.style.display = 'none';
+            summaryCard.style.display = 'none';
+
+            // 1. Validate Student Name using Regular Expression (Alphabets and inner spaces only)
+            const namePattern = /^[A-Za-z\s]+$/;
+            if (nameValue === "" || !namePattern.test(nameValue)) {
+                nameError.style.display = 'block';
+                isFormValid = false;
+            }
+
+            // 2. Validate List Box Multiple Selections array sizes (At least one must be chosen)
+            if (selectedLanguages.length === 0) {
+                langError.style.display = 'block';
+                isFormValid = false;
+            }
+
+            // Halt program routing if verification patterns are violated
+            if (!isFormValid) {
+                return;
+            }
+
+            // 3. Inject verified structural details inside summary pane elements
+            document.getElementById('outName').innerText = nameValue;
+            document.getElementById('outDept').innerText = deptValue;
+            document.getElementById('outLangs').innerText = selectedLanguages.join(', ');
+
+            // Switch presentation display visibility block state to visible
+            summaryCard.style.display = 'block';
+            
+            // Smoothly move view down to display confirmation summary seamlessly 
+            summaryCard.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

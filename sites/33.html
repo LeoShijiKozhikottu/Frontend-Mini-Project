@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Welcome Button</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+        .card {
+            background: white;
+            max-width: 460px;
+            width: 100%;
+            padding: 35px 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+        h2 {
+            color: #0f172a;
+            margin: 0 0 10px;
+            font-size: 24px;
+        }
+        p.subtitle {
+            color: #64748b;
+            font-size: 14px;
+            margin: 0 0 25px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 6px;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input:focus, select:focus {
+            border-color: #0284c7;
+        }
+        .btn-welcome {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+        .btn-welcome:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+        .greeting-display {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 10px;
+            background: #f8fafc;
+            border: 2px dashed #0284c7;
+            display: none;
+            animation: popIn 0.35s ease;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .greeting-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #0284c7;
+            margin-bottom: 6px;
+        }
+        .greeting-body {
+            font-size: 14px;
+            color: #475569;
+            margin: 0;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>VIT Campus Welcome Portal</h2>
+        <p class="subtitle">Enter your name to generate a dynamic personalized welcome banner.</p>
+
+        <div class="input-group">
+            <label for="userName">Enter Your Name:</label>
+            <input type="text" id="userName" placeholder="e.g. Leo Shiji" value="Leo Shiji">
+        </div>
+
+        <div class="input-group">
+            <label for="userRole">Select Visitor Identity:</label>
+            <select id="userRole">
+                <option value="student">VIT University Student</option>
+                <option value="faculty">Distinguished Faculty Member</option>
+                <option value="guest">Industry Guest / Researcher</option>
+            </select>
+        </div>
+
+        <button class="btn-welcome" onclick="generateGreeting()">👋 Click To Welcome</button>
+
+        <div class="greeting-display" id="greetingBox">
+            <div class="greeting-title" id="greetingTitle">Welcome!</div>
+            <p class="greeting-body" id="greetingBody"></p>
+        </div>
+    </div>
+
+    <script>
+        function generateGreeting() {
+            const name = document.getElementById('userName').value.trim() || "Valued Visitor";
+            const role = document.getElementById('userRole').value;
+            const box = document.getElementById('greetingBox');
+            const titleEl = document.getElementById('greetingTitle');
+            const bodyEl = document.getElementById('greetingBody');
+
+            const hour = new Date().getHours();
+            let timeGreeting = "Good Morning";
+            if (hour >= 12 && hour < 17) timeGreeting = "Good Afternoon";
+            else if (hour >= 17) timeGreeting = "Good Evening";
+
+            let roleMsg = "";
+            if (role === 'student') {
+                roleMsg = "Welcome back to your academic journey at Vellore Institute of Technology. May your lab experiments and creative coding inspire great achievements!";
+            } else if (role === 'faculty') {
+                roleMsg = "Thank you for inspiring our future engineers and leading technological research across our university!";
+            } else {
+                roleMsg = "Welcome to VIT Vellore. We are delighted to host you across our green campuses, research hubs, and technological forums.";
+            }
+
+            titleEl.textContent = `${timeGreeting}, ${name}! 🎓`;
+            bodyEl.textContent = roleMsg;
+            box.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIT Interactive Greeting</title>
+    <style>
+        /* Center the application layout gracefully */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+        }
+
+        /* Container for a clean card design */
+        .card {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        /* Heading styles with dynamic height safety */
+        #display-text {
+            color: #1e293b;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            min-height: 48px;
+            transition: color 0.3s ease;
+        }
+
+        /* Interactive target button styling */
+        .interactive-btn {
+            background-color: #0284c7;
+            color: #ffffff;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(2, 132, 199, 0.2);
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        /* Button hover feedback */
+        .interactive-btn:hover {
+            background-color: #0369a1;
+        }
+
+        /* Button click compression feedback */
+        .interactive-btn:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <!-- The text that changes dynamically -->
+        <h1 id="display-text">Hover the button below</h1>
+        
+        <!-- The trigger button -->
+        <button class="interactive-btn" id="hover-trigger">Hover Me</button>
+    </div>    <script>
+        // Select elements from the DOM
+        const displayText = document.getElementById('display-text');
+        const hoverTrigger = document.getElementById('hover-trigger');
+
+        // Store the original text value
+        const originalText = displayText.textContent;
+
+        // Change text when mouse enters the button boundaries
+        hoverTrigger.addEventListener('mouseover', () => {
+            displayText.textContent = 'Welcome to VIT!';
+            displayText.style.color = '#0284c7'; // Shift text color to match branding
+        });
+
+        // Revert text when mouse leaves the button boundaries
+        hoverTrigger.addEventListener('mouseout', () => {
+            displayText.textContent = originalText;
+            displayText.style.color = '#1e293b'; // Revert back to original charcoal gray
+        });
+    </script>
+</body>
+</html>

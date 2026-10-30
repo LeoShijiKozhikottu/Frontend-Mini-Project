@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gravitas 2026 - User Authentication</title>
+
+    <!-- Downloaded Bootstrap CSS -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #001f3f, #003366, #00509e);
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            color: white;
+        }
+
+        header {
+            text-align: center;
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .logo {
+            width: 320px;
+            max-width: 100%;
+            display: block;
+            margin: 20px auto;
+        }
+
+        .auth-card {
+            background: white;
+            color: black;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+            transition: 0.3s;
+            height: 100%;
+        }
+
+        .auth-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .auth-card h2 {
+            color: #003366;
+            font-weight: bold;
+        }
+
+        .form-control {
+            border-radius: 10px;
+        }
+
+        .btn {
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            margin-top: 40px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+
+    <header>
+        <img src="gravitas-logo.jpg"
+             alt="Gravitas Logo"
+             class="logo">
+    </header>
+
+    <!-- Authentication Section -->
+
+    <div class="container my-5">
+
+        <div class="row justify-content-center g-4">
+
+            <!-- Login Box -->
+
+            <div class="col-lg-5 col-md-6">
+
+                <div class="auth-card">
+
+                    <h2 class="text-center mb-4">
+                        Login
+                    </h2>
+
+                    <form>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Username / Email
+                            </label>
+
+                            <input type="email"
+                                   class="form-control"
+                                   placeholder="Enter Email">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Password
+                            </label>
+
+                            <input type="password"
+                                   class="form-control"
+                                   placeholder="Enter Password">
+                        </div>
+
+                        <button type="submit"
+                                class="btn btn-primary w-100">
+                            Login
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+            <!-- Registration Box -->
+
+            <div class="col-lg-5 col-md-6">
+
+                <div class="auth-card">
+
+                    <h2 class="text-center mb-4">
+                        Register
+                    </h2>
+
+                    <form>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Full Name
+                            </label>
+
+                            <input type="text"
+                                   class="form-control"
+                                   placeholder="Enter Full Name">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Email
+                            </label>
+
+                            <input type="email"
+                                   class="form-control"
+                                   placeholder="Enter Email">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Password
+                            </label>
+
+                            <input type="password"
+                                   class="form-control"
+                                   placeholder="Enter Password">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Confirm Password
+                            </label>
+
+                            <input type="password"
+                                   class="form-control"
+                                   placeholder="Confirm Password">
+                        </div>
+
+                        <button type="submit"
+                                class="btn btn-success w-100">
+                            Register
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+
+    <footer>
+        © 2026 Gravitas
+    </footer>
+
+    <!-- Downloaded Bootstrap JS -->
+
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

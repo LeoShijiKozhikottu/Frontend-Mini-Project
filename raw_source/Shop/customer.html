@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Step 1: Customer Details</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="checkout-container">
+    <h2>Part A: Customer & Delivery Details</h2>
+    <form action="payment.html" method="GET">
+        
+        <div class="form-group">
+            <label for="name">Customer Name</label>
+            <input type="text" id="name" required placeholder="John Doe">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" required placeholder="john@example.com">
+        </div>
+
+        <div class="form-group">
+            <label for="mobile">Mobile Number</label>
+            <input type="tel" id="mobile" required placeholder="9876543210">
+        </div>
+
+        <div class="form-group">
+            <label for="address">Delivery Address</label>
+            <textarea id="address" required placeholder="Enter street name, building number..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" id="city" required placeholder="Mumbai">
+        </div>
+
+        <div class="form-group">
+            <label for="state">State</label>
+            <select id="state" required>
+                <option value="">Select State</option>
+                <option value="MH">Maharashtra</option>
+                <option value="DL">Delhi</option>
+                <option value="KA">Karnataka</option>
+                <option value="TN">Tamil Nadu</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="pincode">PIN Code</label>
+            <input type="number" id="pincode" required placeholder="400001">
+        </div>
+
+        <div class="form-group">
+            <label for="del-date">Delivery Date</label>
+            <input type="date" id="del-date" required>
+        </div>
+
+        <div class="btn-nav">
+            <span>Step 1 of 3</span>
+            <button type="submit" class="btn btn-primary">Continue to Payment ➔</button>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>

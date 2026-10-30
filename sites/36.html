@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Search and Catalog Filter</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            margin: 0;
+            padding: 30px 20px;
+        }
+        .container {
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+        h2 {
+            margin-top: 0;
+            color: #0f172a;
+        }
+        .filter-panel {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+        .search-box {
+            flex: 1;
+            min-width: 240px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+            outline: none;
+        }
+        input[type="text"]:focus {
+            border-color: #0284c7;
+        }
+        select {
+            padding: 10px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            outline: none;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 20px;
+        }
+        .product-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+        }
+        .product-thumb {
+            height: 140px;
+            background: #f1f5f9;
+            display: grid;
+            place-items: center;
+            font-size: 54px;
+        }
+        .product-body {
+            padding: 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .cat-tag {
+            font-size: 11px;
+            color: #0284c7;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .prod-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin: 6px 0;
+            color: #0f172a;
+        }
+        .price-line {
+            font-size: 18px;
+            font-weight: 800;
+            color: #059669;
+            margin-top: auto;
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .btn-buy {
+            background: #0284c7;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-buy:hover {
+            background: #0369a1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Electronics Product Search &amp; Filter</h2>
+        
+        <div class="filter-panel">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search gadgets, accessories, audio..." oninput="renderProducts()">
+            </div>
+            <div>
+                <select id="catSelect" onchange="renderProducts()">
+                    <option value="All">All Categories</option>
+                    <option value="Audio">Audio</option>
+                    <option value="Wearables">Wearables</option>
+                    <option value="Peripherals">Peripherals</option>
+                    <option value="Accessories">Accessories</option>
+                </select>
+            </div>
+            <div>
+                <select id="sortSelect" onchange="renderProducts()">
+                    <option value="featured">Sort: Featured</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="product-grid" id="productGrid"></div>
+    </div>
+
+    <script>
+        const items = [
+            { id: 1, name: "Wireless Mechanical Keyboard", cat: "Peripherals", price: 3499, icon: "⌨️", rating: 4.8 },
+            { id: 2, name: "Ergonomic Optical Mouse", cat: "Peripherals", price: 1299, icon: "🖱️", rating: 4.6 },
+            { id: 3, name: "Noise Cancelling Headphones", cat: "Audio", price: 4999, icon: "🎧", rating: 4.9 },
+            { id: 4, name: "True Wireless Stereo Earbuds", cat: "Audio", price: 2199, icon: "🎵", rating: 4.5 },
+            { id: 5, name: "Fitness Smartwatch Pro", cat: "Wearables", price: 3999, icon: "⌚", rating: 4.7 },
+            { id: 6, name: "Fast USB-C GaN Charger 65W", cat: "Accessories", price: 1499, icon: "🔌", rating: 4.8 },
+            { id: 7, name: "High-Speed 4K HDMI Cable", cat: "Accessories", price: 499, icon: "📺", rating: 4.4 },
+            { id: 8, name: "Portable Bluetooth Speaker", cat: "Audio", price: 1899, icon: "🔊", rating: 4.6 }
+        ];
+
+        function renderProducts() {
+            const q = document.getElementById('searchInput').value.toLowerCase().trim();
+            const cat = document.getElementById('catSelect').value;
+            const sort = document.getElementById('sortSelect').value;
+            const grid = document.getElementById('productGrid');
+
+            let filtered = items.filter(i => {
+                const matchesQ = !q || i.name.toLowerCase().includes(q) || i.cat.toLowerCase().includes(q);
+                const matchesCat = (cat === 'All' || i.cat === cat);
+                return matchesQ && matchesCat;
+            });
+
+            if (sort === 'price-low') filtered.sort((a,b) => a.price - b.price);
+            else if (sort === 'price-high') filtered.sort((a,b) => b.price - a.price);
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 40px; color: #94a3b8;">No matching products found.</div>`;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(i => `
+                <div class="product-card">
+                    <div class="product-thumb">${i.icon}</div>
+                    <div class="product-body">
+                        <span class="cat-tag">${i.cat}</span>
+                        <div class="prod-title">${i.name}</div>
+                        <div class="price-line">
+                            <span>₹${i.price.toLocaleString('en-IN')}</span>
+                            <button class="btn-buy" onclick="alert('Added ${i.name} to cart!')">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        renderProducts();
+    </script>
+</body>
+</html>
+

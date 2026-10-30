@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Step 2: Payment Details</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="checkout-container">
+    <h2>Part B: Payment Details</h2>
+    <form action="summary.html" method="GET">
+        
+        <div class="form-group">
+            <label>Payment Method</label>
+            <div class="radio-group">
+                <input type="radio" id="credit" name="payment-method" checked>
+                <label for="credit">Credit Card</label>
+            </div>
+            <div class="radio-group">
+                <input type="radio" id="debit" name="payment-method">
+                <label for="debit">Debit Card</label>
+            </div>
+            <div class="radio-group">
+                <input type="radio" id="upi" name="payment-method">
+                <label for="upi">UPI</label>
+            </div>
+            <div class="radio-group">
+                <input type="radio" id="net-banking" name="payment-method">
+                <label for="net-banking">Net Banking</label>
+            </div>
+            <div class="radio-group">
+                <input type="radio" id="cod" name="payment-method">
+                <label for="cod">Cash on Delivery</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="card-name">Card Holder Name</label>
+            <input type="text" id="card-name" placeholder="John Doe">
+        </div>
+
+        <div class="form-group">
+            <label for="card-num">Card Number</label>
+            <input type="text" id="card-num" placeholder="XXXX-XXXX-XXXX-1234">
+        </div>
+
+        <div class="form-group">
+            <label for="expiry">Expiry Date</label>
+            <input type="month" id="expiry">
+        </div>
+
+        <div class="form-group">
+            <label for="cvv">CVV</label>
+            <input type="password" id="cvv" placeholder="***" maxlength="3">
+        </div>
+
+        <div class="form-group">
+            <label for="upi-id">UPI ID</label>
+            <input type="text" id="upi-id" placeholder="username@bank">
+        </div>
+
+        <div class="form-group checkbox-group">
+            <input type="checkbox" id="terms" required>
+            <label for="terms">I accept the Terms and Conditions</label>
+        </div>
+
+        <div class="btn-nav">
+            <a href="customer.html" class="btn btn-secondary">➔ Back</a>
+            <button type="submit" class="btn btn-primary">Review Order ➔</button>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>

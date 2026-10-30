@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIT Health Care Center</title>
+    <style>
+        /* Reset and Body Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Main Content Push-down Container */
+        .content {
+            flex: 1;
+            padding: 40px;
+            text-align: center;
+            color: #64748b;
+        }
+
+        /* Footer Container */
+        .footer-container {
+            background-color: #0f172a;
+            color: #cbd5e1;
+            padding: 40px 20px 20px 20px;
+        }
+
+        /* Footer Top Section Content Layout */
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        /* Individual Footer Columns */
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        /* Column Headings */
+        .footer-heading {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        /* Hospital Special Heading */
+        .hospital-title {
+            color: #38bdf8;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        /* Footer Text */
+        .footer-text {
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0 0 8px 0;
+        }
+
+        /* Navigation and List Styles */
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Hyperlinks styling */
+        .footer-link {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 14px;
+            width: fit-content;
+        }
+
+        .footer-link:hover {
+            color: #38bdf8;
+            text-decoration: underline;
+        }
+
+        /* Right Side Logo Column styling */
+        .logo-column {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: flex-start;
+            min-width: 150px;
+        }
+
+        /* Logo Placeholder Styling */
+                /* Updated Logo Image Styling */
+        .hospital-logo {
+            width: 100px;
+            height: 100px;
+            border: 2px solid #38bdf8;
+            border-radius: 50%;
+            object-fit: cover; /* Prevents the image from distorting */
+            background-color: #1e293b; /* Fallback background color */
+        }
+
+
+        /* Horizontal Divider Line */
+        .footer-divider {
+            border: 0;
+            height: 1px;
+            background-color: #334155;
+            max-width: 1200px;
+            margin: 30px auto 20px auto;
+        }
+
+        /* Bottom Copyright Section */
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 13px;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Webpage Content Area -->
+    <div class="content">
+        <h2>Welcome to VIT Health Care Center Web Portal</h2>
+        <p>Scroll down to view the newly structured document footer component.</p>
+    </div>
+
+    <!-- Footer Component Layout -->
+    <div class="footer-container">
+        <div class="footer-content">
+            
+            <!-- Column 1: Hospital Info & Email -->
+            <div class="footer-column">
+                <div class="hospital-title">VIT Health Care Center</div>
+                <div class="footer-text">Providing world-class medical facilities and comprehensive patient-centric care dashboards.</div>
+                <div class="footer-text" style="margin-top: 15px;">
+                    <strong>Email:</strong> <a href="mailto:support@vithealthcare.com" class="footer-link" style="display: inline;">support@vithealthcare.com</a>
+                </div>
+            </div>
+
+            <!-- Column 2: Quick Links Navigation -->
+            <div class="footer-column">
+                <div class="footer-heading">Quick Links</div>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Home</a>
+                    <a href="#" class="footer-link">Departments</a>
+                    <a href="#" class="footer-link">Doctors</a>
+                    <a href="#" class="footer-link">Appointments</a>
+                </div>
+            </div>
+
+            <!-- Column 3: Social Media Connectivity Links -->
+            <div class="footer-column">
+                <div class="footer-heading">Follow Us</div>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Facebook</a>
+                    <a href="#" class="footer-link">Instagram</a>
+                    <a href="#" class="footer-link">LinkedIn</a>
+                </div>
+            </div>
+
+            <!-- Column 4: Right Side Logo Alignment -->
+                       <!-- Column 4: Right Side Logo Alignment -->
+            <div class="logo-column">
+                <!-- Replace the old placeholder div with this img tag -->
+                <img src="vit-logo.jpg" alt="VIT Health Care Logo" class="hospital-logo">
+            </div>
+
+
+        </div>
+
+        <!-- Section Break Divider Grid line -->
+        <div class="footer-divider"></div>
+
+        <!-- Copyright Info Text block -->
+        <div class="footer-bottom">
+            &copy; 2026 VIT Health Care Center. All Rights Reserved.
+        </div>
+    </div>
+
+</body>
+</html>
